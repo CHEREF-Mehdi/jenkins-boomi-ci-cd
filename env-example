@@ -1,0 +1,4 @@
+KEY=<X-X-X> #Get KEY value from : https://github.com/OfficialBoomi/boomicicd-docker/blob/master/docker/secret
+JENKINS_USER=admin
+JENKINS_PASS=admin
+PORT=8080

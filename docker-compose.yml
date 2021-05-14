@@ -1,0 +1,10 @@
+version: "3.9"
+services:
+  jenkins:
+    build: .
+    env_file: 
+        - ./.env
+    volumes:
+        - ./jenkins_home:/var/jenkins_home
+    ports:
+        - "${PORT}:${PORT}"
