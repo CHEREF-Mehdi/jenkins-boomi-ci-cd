@@ -20,7 +20,7 @@
 docker compose up
 ```
 
-3. Wait for Jenkins to print Log info message : ***Jenkins is fully up and running***
+3. Wait for Jenkins to print Log info message : ***"Jenkins is fully up and running"***
 
 4. Go to http://localhost:${PORT}/ & Log in with **${JENKINS_USER}** and **${JENKINS_PASS}** values you have configured in the .env file
 
@@ -44,3 +44,15 @@ docker compose up
     * Go to ***Dashboard*** & click on ***the Account_{Rename}*** folder & go to ***Publish Reports*** Tab.
     * Select ***List Atoms*** & click on ***Build now***
     * This Job should return a list of all your Boomi atoms.
+
+8. GIT Advance Settings (There are four jobs that use a GIT Credentials as ***"git_id"***)
+    * Go to ***Dashboard*** & click on ***the Account_{Rename}*** folder & under ***Stores scoped to Account_{Rename}*** click on ***the Account_{Rename}*** & set :
+    * Select ***Global credentials (unrestricted)*** & click on ***Add Credentials*** :
+        * ***User name*** : "your git user name"
+        * ***Password*** : Past your Git Token generated from [here](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)
+        * ***ID*** : git_id
+        * Click Add
+    * Under the Account Folder search for all Jobs that have GIT (there should be 4).
+    * Click ***configure*** on each job and : 
+        * ***Source Code Management*** update the ***Repository URL*** to point to your GIT repository where the component files will be uploaded.
+        * Under ***Post-build Actions*** add the Branches to push to remote repositories.
