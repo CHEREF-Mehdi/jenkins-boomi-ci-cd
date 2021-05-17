@@ -26,16 +26,21 @@ docker compose up
 
 5. Configure Jenkins basic settings
     * Go to ***Manage Jenkins*** scroll to ***System Configuration*** & Click on ***Configur System*** & update the following :
-        * ***Maven Project Configuration »*** set the value of ***# of executors*** to : 10
-        * In ***Git plugin*** Add a Git user global config by setting your ***user.name*** & ***user.email***
-        * In ***Shell*** set the value of ***Shell executable*** to : /bin/bash
+        * ***Maven Project Configuration*** set the value of ***"# of executors"*** to : 10
+        * In ***Git plugin*** Add a Git user global config by setting your **"*user.name"*** & **"*user.email"***
+        * In ***Shell*** set the value of ***"Shell executable"*** to : /bin/bash
         * Click ***Apply & Save***
     
-    * Go to ***Manage Jenkins*** scroll to ***Security*** & Click on ***Configure Global Security*** scroll tp ***Authorize JSONP or primitive XPath requests by whitelist*** & check the box ***Allow requests without Referer*** [x].
+    * Go to ***Manage Jenkins*** scroll to ***Security*** & Click on ***Configure Global Security*** scroll tp ***Authorize JSONP or primitive XPath requests by whitelist*** & check the box ***"Allow requests without Referer"*** [x].
 
 6. Configuring Boomi Account
-    * Select the Account_{Rename} folder
+    * Go to ***Dashboard*** & Click on the ***Account_{Rename}*** folder.
 
-    * Click on ***configure*** & update the ***accountId*** in **folder propriety** & click **Apply & save**. (To find your **Boomi __accountId__** Log in to your Boomi account and go to **Settings » Account Information**.)
+    * Click on ***configure*** & update the ***"accountId"*** in **folder propriety** & click **Apply & save**. (To find your **Boomi __accountId__** Log in to your Boomi account and go to **Settings » Account Information**.)
 
-    * Click on ***Credentials*** & update the authToken to the Boomi API Token (Format) ***BOOMI_TOKEN.user@company.com:bOomi-aPi-ToKen***. (To configure your Boomi API Token Log in to your Boomi account and go to ***Settings » Token Management*** & and new Token)
+    * Click on ***Credentials*** & update the authToken to the Boomi API Token (Format) ***BOOMI_TOKEN.user@company.com:bOomi-aPi-ToKen***. (To configure your Boomi API Token Log in to your Boomi account and go to ***Settings » Token Management*** & add new Token)
+
+7. Test Job execution 
+    * Go to ***Dashboard*** & click on ***the Account_{Rename}*** folder & go to ***Publish Reports*** Tab.
+    * Select ***List Atoms*** & click on ***Build now***
+    * This Job should return a list of all your Boomi atoms.
