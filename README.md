@@ -22,8 +22,20 @@ docker compose up
 
 3. Wait for Jenkins to print Log info message : ***Jenkins is fully up and running***
 
-4. Log in with **JENKINS_USER** and **JENKINS_PASS** values you have configured in the .env file
+4. Go to http://localhost:${PORT}/ & Log in with **${JENKINS_USER}** and **${JENKINS_PASS}** values you have configured in the .env file
 
-5. Configuring Boomi Account
-    * select the Account_{Rename} folder & click configure & update the ***accountId*** in **folder propriety** & click **Apply & save**.
-        * Log in to your boomi account and go to **Settings » Account Information** to find your  **Boomi __accountId__**
+5. Configure Jenkins basic settings
+    * Go to ***Manage Jenkins*** scroll to ***System Configuration*** & Click on ***Configur System*** & update the following :
+        * ***Maven Project Configuration »*** set the value of ***# of executors*** to : 10
+        * In ***Git plugin*** Add a Git user global config by setting your ***user.name*** & ***user.email***
+        * In ***Shell*** set the value of ***Shell executable*** to : /bin/bash
+        * Click ***Apply & Save***
+    
+    * Go to ***Manage Jenkins*** scroll to ***Security*** & Click on ***Configure Global Security*** scroll tp ***Authorize JSONP or primitive XPath requests by whitelist*** & check the box ***Allow requests without Referer*** [x].
+
+6. Configuring Boomi Account
+    * Select the Account_{Rename} folder
+
+    * Click on ***configure*** & update the ***accountId*** in **folder propriety** & click **Apply & save**. (To find your **Boomi __accountId__** Log in to your Boomi account and go to **Settings » Account Information**.)
+
+    * Click on ***Credentials*** & update the authToken to the Boomi API Token (Format) ***BOOMI_TOKEN.user@company.com:bOomi-aPi-ToKen***. (To configure your Boomi API Token Log in to your Boomi account and go to ***Settings » Token Management*** & and new Token)
