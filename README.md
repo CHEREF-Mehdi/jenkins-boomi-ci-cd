@@ -56,3 +56,4 @@ docker compose up
     * Click ***configure*** on each job and : 
         * ***Source Code Management*** update the ***Repository URL*** to point to your GIT repository where the component files will be uploaded.
         * Under ***Post-build Actions*** add the Branches to push to remote repositories.
+        * click on ***Apply & save**.
