@@ -31,7 +31,7 @@ docker compose up
         * In ***Shell*** set the value of ***"Shell executable"*** to : /bin/bash
         * Click ***Apply & Save***
     
-    * Go to ***Manage Jenkins*** scroll to ***Security*** & Click on ***Configure Global Security*** scroll tp ***Authorize JSONP or primitive XPath requests by whitelist*** & check the box ***"Allow requests without Referer"*** [x].
+    * Go to ***Manage Jenkins*** scroll to ***Security*** & Click on ***Configure Global Security*** scroll to ***Authorize JSONP or primitive XPath requests by whitelist*** & check the box ***"Allow requests without Referer"*** [x] .
 
 6. Configuring Boomi Account
     * Go to ***Dashboard*** & Click on the ***Account_{Rename}*** folder.
@@ -43,7 +43,7 @@ docker compose up
 7. Test Job execution 
     * Go to ***Dashboard*** & click on ***the Account_{Rename}*** folder & go to ***Publish Reports*** Tab.
     * Select ***List Atoms*** & click on ***Build now***
-    * This Job should return a list of all your Boomi atoms.
+    * Once the build is compelete open refresh the output and select the html report.
 
 8. GIT Advance Settings (There are four jobs that use a GIT Credentials as ***"git_id"***)
     * Go to ***Dashboard*** & click on ***the Account_{Rename}*** folder & under ***Stores scoped to Account_{Rename}*** click on ***the Account_{Rename}*** & set :
@@ -51,9 +51,37 @@ docker compose up
         * ***User name*** : "your git user name"
         * ***Password*** : Past your Git Token generated from [here](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)
         * ***ID*** : git_id
-        * Click Add
+        * Click OK
     * Under the Account Folder search for all Jobs that have GIT (there should be 4).
     * Click ***configure*** on each job and : 
         * ***Source Code Management*** update the ***Repository URL*** to point to your GIT repository where the component files will be uploaded.
         * Under ***Post-build Actions*** add the Branches to push to remote repositories.
         * click on ***Apply & save**.
+
+9. Sonar Advance Settings
+    1. Configure external SonarQube for Boomi code quality checks:
+        * Create external docker volume : [Documentation](https://devopsheaven.com/docker/docker-compose/volumes/2018/01/16/volumes-in-docker-compose.html)
+           ```
+           docker volume create --opt type=none --opt device="full/path/to/you/folder" --opt o=bind ${SONAR_VOLUME_NAME}
+           ```
+            
+        * Run docker compose file as folow :
+            ```
+            docker compose -f docker-compose-sonar.yml -p boomi-jenkins-sonarqube up
+            ```
+        * Test the instalation : after sonarQube is up, open sonar container CLI and run :
+            ```
+            sonar-scanner \
+            -Dsonar.projectKey=BoomiSonar \
+            -Dsonar.sources=. \
+            -Dsonar.host.url=http://localhost:9000 \
+            -Dsonar.login=82e12d4fcdfd583f963e680c63dd85d441c738e8
+            ```
+
+    2. Jenkins : Install SonarQube Scanner & Sonar Quality Gates
+        * Go to ***Dashboard*** & select ***Manage Jenkins*** scroll to and click ***Manage Plugins***, select ***Available*** Tab.
+        * search and install SonarQube Scanner.
+        * search and install Sonar Quality Gates.
+        * Restart Jenkins after instalation.
+    
+    3. 

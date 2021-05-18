@@ -1,12 +1,27 @@
 version: "3.9"
+
+volumes:
+    sonarqube:
+      external: true
+
 services:
   jenkins:
     build: .
-    image : boomicicd-jenkins
-    container_name: container 
-    env_file: 
-        - ./.env
+    image: boomicicd-jenkins
+    container_name: jenkins
+    env_file:
+      - ./.env
     volumes:
-        - ./jenkins_home:/var/jenkins_home
+      - ./jenkins_home:/var/jenkins_home
     ports:
-        - "${PORT}:8080"
+      - "${PORT}:8080"
+  sonar:
+    build:
+      context: .
+      dockerfile: sonar-dockerfile
+    image: boomicicd-sonar
+    container_name: sonar
+    volumes:
+      - ${SONAR_VOLUME_NAME}:/opt/sonarqube
+    ports:
+      - "${SONAR_PORT}:9000"
