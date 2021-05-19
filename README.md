@@ -15,61 +15,69 @@
 
 1. Add .env file to the root folder with the same variable names in env-example file
 
-2. Run : 
-```
-docker compose up
-```
+2. Docker commands 
+    1. SonarQube back up: Create new folder inside this root project with ***sonarqube*** as given name.
 
-3. Wait for Jenkins to print Log info message : ***"Jenkins is fully up and running"***
+    2. Create external docker volume : [Documentation](https://devopsheaven.com/docker/docker-compose/volumes/2018/01/16/volumes-in-docker-compose.html)
+    ```
+    docker volume create --opt type=none --opt device="full/path/to/jenkins-boomi-ci-cd/sonarqube" --opt o=bind sonarqube
+    ```
 
-4. Go to http://localhost:${PORT}/ & Log in with **${JENKINS_USER}** and **${JENKINS_PASS}** values you have configured in the .env file
+    3. Run Containers:
+    ```
+    docker compose up
+    ```
 
-5. Configure Jenkins basic settings
-    * Go to ***Manage Jenkins*** scroll to ***System Configuration*** & Click on ***Configur System*** & update the following :
+3. Wait for :
+    * Jenkins container to print Log info message : ***"Jenkins is fully up and running"***.
+    * Sonar container to print Log info message : ***SonarQube is up***
+
+4. Go to http://localhost:${JENKINS_PORT}/ & Log in with **${JENKINS_USER}** and **${JENKINS_PASS}** values you have configured in the .env file
+
+5. Install Jenkins Plugins & Configure Jenkins settings 
+    1. In ***Dashboard*** select ***Manage Jenkins*** scroll to and click on ***Manage Plugins***, select ***Available*** Tab.
+        * search for and install SonarQube Scanner.
+        * search for and install Sonar Quality Gates.
+        * Restart Jenkins after instalation.
+
+    2. Go back to ***Manage Jenkins*** scroll to ***System Configuration*** & Click on ***Configur System*** & update the following :
         * ***Maven Project Configuration*** set the value of ***"# of executors"*** to : 10
         * In ***Git plugin*** Add a Git user global config by setting your **"*user.name"*** & **"*user.email"***
         * In ***Shell*** set the value of ***"Shell executable"*** to : /bin/bash
         * Click ***Apply & Save***
     
-    * Go to ***Manage Jenkins*** scroll to ***Security*** & Click on ***Configure Global Security*** scroll to ***Authorize JSONP or primitive XPath requests by whitelist*** & check the box ***"Allow requests without Referer"*** [x] .
+    2. Go back to ***Manage Jenkins*** scroll to ***Security*** & Click on ***Configure Global Security*** scroll to ***Authorize JSONP or primitive XPath requests by whitelist*** & check the box ***"Allow requests without Referer"*** [x] .
 
 6. Configuring Boomi Account
-    * Go to ***Dashboard*** & Click on the ***Account_{Rename}*** folder.
+    1. Go to ***Dashboard*** & Click on the ***Account_{Rename}*** folder.
 
-    * Click on ***configure*** & update the ***"accountId"*** in **folder propriety** & click **Apply & save**. (To find your **Boomi __accountId__** Log in to your Boomi account and go to **Settings » Account Information**.)
+    2. Click on ***configure*** & update the ***"accountId"*** in **folder propriety** & click **Apply & save**. (To find your **Boomi __accountId__** Log in to your Boomi account and go to **Settings » Account Information**.)
 
-    * Click on ***Credentials*** & update the authToken to the Boomi API Token (Format) ***BOOMI_TOKEN.user@company.com:bOomi-aPi-ToKen***. (To configure your Boomi API Token Log in to your Boomi account and go to ***Settings » Token Management*** & add new Token)
+    3. Click on ***Credentials*** & update the authToken to the Boomi API Token (Format) ***BOOMI_TOKEN.user@company.com:bOomi-aPi-ToKen***. (To configure your Boomi API Token Log in to your Boomi account and go to ***Settings » Token Management*** & add new Token)
 
 7. Test Job execution 
-    * Go to ***Dashboard*** & click on ***the Account_{Rename}*** folder & go to ***Publish Reports*** Tab.
-    * Select ***List Atoms*** & click on ***Build now***
-    * Once the build is compelete open refresh the output and select the html report.
+    1. Go to ***Dashboard*** & click on ***the Account_{Rename}*** folder & go to ***Publish Reports*** Tab.
+    2. Select ***List Atoms*** & click on ***Build now***
+    3. Once the build is compelete refresh the page and select the html report.
 
 8. GIT Advance Settings (There are four jobs that use a GIT Credentials as ***"git_id"***)
-    * Go to ***Dashboard*** & click on ***the Account_{Rename}*** folder & under ***Stores scoped to Account_{Rename}*** click on ***the Account_{Rename}*** & set :
-    * Select ***Global credentials (unrestricted)*** & click on ***Add Credentials*** :
-        * ***User name*** : "your git user name"
-        * ***Password*** : Past your Git Token generated from [here](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)
-        * ***ID*** : git_id
-        * Click OK
-    * Under the Account Folder search for all Jobs that have GIT (there should be 4).
-    * Click ***configure*** on each job and : 
-        * ***Source Code Management*** update the ***Repository URL*** to point to your GIT repository where the component files will be uploaded.
-        * Under ***Post-build Actions*** add the Branches to push to remote repositories.
-        * click on ***Apply & save**.
+
+    1. Go to ***Dashboard*** & click on ***the Account_{Rename}*** folder ***»***  ***Credentials*** & under ***Stores scoped to Account_{Rename}*** click on ***the Account_{Rename}*** :
+        * Select ***Global credentials (unrestricted)*** folder & click on ***Add Credentials*** :
+            * ***User name*** : "your git user name"
+            * ***Password*** : Past your Git Token generated from [here](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token)
+            * ***ID*** : git_id
+            * Click OK
+
+    2. Under the Account Folder search for all Jobs that have GIT (there should be 4).
+        * On each job click ***configure*** : 
+            * ***Source Code Management*** update the ***Repository URL*** to point to your GIT repository where the component files will be uploaded.
+            * Under ***Post-build Actions*** add the Branches to push to remote repositories.
+            * click on ***Apply & save**.
 
 9. Sonar Advance Settings
     1. Configure external SonarQube for Boomi code quality checks:
-        * Create external docker volume : [Documentation](https://devopsheaven.com/docker/docker-compose/volumes/2018/01/16/volumes-in-docker-compose.html)
-           ```
-           docker volume create --opt type=none --opt device="full/path/to/you/folder" --opt o=bind ${SONAR_VOLUME_NAME}
-           ```
-            
-        * Run docker compose file as folow :
-            ```
-            docker compose -f docker-compose-sonar.yml -p boomi-jenkins-sonarqube up
-            ```
-        * Test the instalation : after sonarQube is up, open sonar container CLI and run :
+        * Test the instalation : open sonar container CLI and run :
             ```
             sonar-scanner \
             -Dsonar.projectKey=BoomiSonar \
@@ -77,11 +85,31 @@ docker compose up
             -Dsonar.host.url=http://localhost:9000 \
             -Dsonar.login=82e12d4fcdfd583f963e680c63dd85d441c738e8
             ```
+        * You should have a success message at the end of the execution:
+            ```
+            INFO: ------------------------------------------------------------------------
+            INFO: EXECUTION SUCCESS
+            INFO: ------------------------------------------------------------------------
+            ```
 
-    2. Jenkins : Install SonarQube Scanner & Sonar Quality Gates
-        * Go to ***Dashboard*** & select ***Manage Jenkins*** scroll to and click ***Manage Plugins***, select ***Available*** Tab.
-        * search and install SonarQube Scanner.
-        * search and install Sonar Quality Gates.
-        * Restart Jenkins after instalation.
-    
-    3. 
+    2. Jenkins Settings :
+        1. Go to ***Dashboard*** & Click on the ***Account_{Rename}*** folder:
+            1. Click on ***Credentials*** & update the sonarToken set the ***Secret*** to : 82e12d4fcdfd583f963e680c63dd85d441c738e8
+            2. Click on ***Configure*** in ***Folder Properties*** look for *sonarProjectKey* propretie and replace it by *SONAR_PROJECT_KEY* (**IMPORTANT** do not replace the ***Value*** replace the ***Name***)
+
+        2. Go back to ***Dashboard*** and select ***Manage Jenkins*** scroll to ***System Configuration*** and click on ***Global Tool Configuration*** & Scroll down to ***SonarQube Scanner*** & Click on ***Add SonarQube Scanner*** button:
+            * ***Name*** : SonarQube Scanner Boomi Sonar
+            * ***Install*** from Maven Central : Choose 4.2.0.1873
+            * Click ***apply & save***
+        
+        3. Go back to ***Dashboard*** and select ***Manage Jenkins*** scroll to ***System Configuration*** and click on ***Configure System*** :
+            * Scroll down to ***SonarQube servers*** & Click on ***Add SonarQube*** button:
+                * ***Name*** : Boomi Sonar
+                * ***Server URL*** : http://sonar:9000/
+
+            * Scroll down to ***Quality Gates - Sonarqube*** & Click on ***Add Sonar instance*** button:
+                * ***Name*** : Boomi Sonar
+                * ***SonarQube Server URL*** : http://sonar:9000/
+                * ***SonarQube account token*** : 82e12d4fcdfd583f963e680c63dd85d441c738e8
+                * Click ***apply & save***
+                 

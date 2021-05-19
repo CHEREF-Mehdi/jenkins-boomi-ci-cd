@@ -6,7 +6,9 @@ volumes:
 
 services:
   jenkins:
-    build: .
+    build: 
+      context: .
+      dockerfile: ./dockerfiles/jenkins
     image: boomicicd-jenkins
     container_name: jenkins
     env_file:
@@ -14,14 +16,14 @@ services:
     volumes:
       - ./jenkins_home:/var/jenkins_home
     ports:
-      - "${PORT}:8080"
+      - "${JENKINS_PORT}:8080"
   sonar:
     build:
       context: .
-      dockerfile: sonar-dockerfile
+      dockerfile: ./dockerfiles/sonar
     image: boomicicd-sonar
     container_name: sonar
     volumes:
-      - ${SONAR_VOLUME_NAME}:/opt/sonarqube
+      - sonarqube:/opt/sonarqube
     ports:
       - "${SONAR_PORT}:9000"
