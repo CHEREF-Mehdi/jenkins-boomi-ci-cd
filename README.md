@@ -30,7 +30,7 @@
 
 3. Wait for :
     * Jenkins container to print Log info message : ***"Jenkins is fully up and running"***.
-    * Sonar container to print Log info message : ***SonarQube is up***
+    * Sonar container to print Log info message : ***"SonarQube is up"***
 
 4. Go to http://localhost:${JENKINS_PORT}/ & Log in with **${JENKINS_USER}** and **${JENKINS_PASS}** values you have configured in the .env file
 
