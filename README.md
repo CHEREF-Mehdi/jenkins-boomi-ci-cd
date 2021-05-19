@@ -92,7 +92,9 @@
             INFO: ------------------------------------------------------------------------
             ```
         
-        * Go to http://localhost:9000 and Login with login/password admin/admin
+        * Go to http://localhost:9000 and Login with :
+            * login : *admin* 
+            * password : *admin*
 
     2. Jenkins Settings :
         1. Go to ***Dashboard*** & Click on the ***Account_{Rename}*** folder:
