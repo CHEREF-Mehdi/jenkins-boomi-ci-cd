@@ -29,8 +29,8 @@
     ```
 
 3. Wait for :
-    * Jenkins container to print *INFO* Log : ***"Jenkins is fully up and running"***.
-    * Sonar container to print *INFO* Log : ***"SonarQube is up"***
+    * Jenkins container to print INFO Log : ***"Jenkins is fully up and running"***.
+    * Sonar container to print INFO Log : ***"SonarQube is up"***
 
 4. Go to http://localhost:${JENKINS_PORT}/ & Log in with **${JENKINS_USER}** and **${JENKINS_PASS}** values you have configured in the .env file
 
@@ -91,6 +91,8 @@
             INFO: EXECUTION SUCCESS
             INFO: ------------------------------------------------------------------------
             ```
+        
+        * Go to http://localhost:9000 and Login with login/password admin/admin
 
     2. Jenkins Settings :
         1. Go to ***Dashboard*** & Click on the ***Account_{Rename}*** folder:
