@@ -41,12 +41,12 @@
         * Restart Jenkins after installation.
 
     2. Go back to ***Manage Jenkins*** scroll to ***System Configuration*** & Click on ***Configur System*** & update the following :
-        * ***Maven Project Configuration*** set the value of ***"# of executors"*** to : 10 (You must update this value each time you restart the Jenkins container)
+        * ***Maven Project Configuration*** set the value of ***"# of executors"*** to : 10 (:bangbang: You must update this value each time you restart the Jenkins container)
         * In ***Git plugin*** Add a Git user global config by setting your **"*user.name"*** & **"*user.email"***
         * In ***Shell*** set the value of ***"Shell executable"*** to : /bin/bash
         * Click ***Apply & Save***
     
-    2. Go back to ***Manage Jenkins*** scroll to ***Security*** & Click on ***Configure Global Security*** scroll to ***Authorize JSONP or primitive XPath requests by whitelist*** & check the box ***"Allow requests without Referer"*** [x] .
+    2. Go back to ***Manage Jenkins*** scroll to ***Security*** & Click on ***Configure Global Security*** scroll to ***Authorize JSONP or primitive XPath requests by whitelist*** & check the box ***"Allow requests without Referer"***.
 
 6. Configuring Boomi Account
     * Go to ***Dashboard*** & Click on the ***Account_{Rename}*** folder:
@@ -95,7 +95,7 @@
     2. Jenkins Settings :
         1. Go to ***Dashboard*** & Click on the ***Account_{Rename}*** folder:
             1. Click on ***Credentials*** & update the sonarToken set the ***Secret*** to : *82e12d4fcdfd583f963e680c63dd85d441c738e8*
-            2. Click on ***Configure*** in ***Folder Properties*** look for *sonarProjectKey* propretie and replace it by *SONAR_PROJECT_KEY* (**IMPORTANT** do not replace the ***Value*** replace the ***Name***)
+            2. Click on ***Configure*** in ***Folder Properties*** look for *sonarProjectKey* propretie and replace it by *SONAR_PROJECT_KEY* (:bangbang: **IMPORTANT** do not replace the ***Value*** replace the ***Name***)
 
         2. Go back to ***Dashboard*** and select ***Manage Jenkins*** scroll to ***System Configuration*** and click on ***Global Tool Configuration*** & Scroll down to ***SonarQube Scanner*** & Click on ***Add SonarQube Scanner*** button:
             * ***Name*** : *SonarQube Scanner Boomi Sonar*
@@ -112,3 +112,5 @@
                 * ***SonarQube Server URL*** : *http://sonar:9000/*
                 * ***SonarQube account token*** : *82e12d4fcdfd583f963e680c63dd85d441c738e8*
                 * Click ***apply & save***
+
+10. You're done! :relaxed:
