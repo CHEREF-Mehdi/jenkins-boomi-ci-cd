@@ -92,7 +92,7 @@
             INFO: ------------------------------------------------------------------------
             ```
         
-        * Go to http://localhost:9000 and Login with :
+        * Go to http://localhost:{SONAR_PORT} and Login with :
             * login : *admin* 
             * password : *admin*
 
