@@ -15,15 +15,7 @@
 
 1. Add .env file to the root folder with the same variable names in env-example file
 
-2. Docker commands 
-    1. SonarQube back up: Create a new folder inside the root folder with ***sonarqube*** as given name.
-
-    2. Create external docker volume : [Read documentation](https://devopsheaven.com/docker/docker-compose/volumes/2018/01/16/volumes-in-docker-compose.html)
-    ```
-    docker volume create --opt type=none --opt device="full/path/to/your/jenkins-boomi-ci-cd/sonarqube" --opt o=bind sonarqube
-    ```
-
-    3. Run Containers:
+2. Run Docker Containers:
     ```
     docker compose up
     ```
