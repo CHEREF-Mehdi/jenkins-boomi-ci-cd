@@ -69,7 +69,7 @@
 
 9. Sonar Advance Settings
     1. Test your sonar container Boomi code quality checks:
-        * Open sonar container CLI and test the installation by running this command :
+        * Open sonar container CLI and test the setup by running this command :
             ```
             sonar-scanner \
             -Dsonar.projectKey=BoomiSonar \
