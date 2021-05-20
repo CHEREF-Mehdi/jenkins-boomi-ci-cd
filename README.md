@@ -51,7 +51,7 @@
 6. Configuring Boomi Account
     * Go to ***Dashboard*** & Click on the ***Account_{Rename}*** folder:
 
-        1. Click on ***configure***, update the ***"accountId"*** in **folder propriety** & click **Apply & save**. (To find your **Boomi __accountId__** Log in to your Boomi account and go to **Settings » Account Information**.)
+        1. Click on ***configure***, update the ***"accountId"*** in **folder propriety** & click **Apply & save**. (To find your **Boomi __accountId__** Log in to your Boomi account and go to **Settings » Account Information**. [Link1](https://help.boomi.com/bundle/developer_apis/page/int-AtomSphere_API_and_Partner_API_authentication.html) [Link2](https://help.boomi.com/bundle/integration/page/int-AtomSphere_API_Tokens_page.html))
 
         2. Click on ***Credentials*** & update the authToken to the Boomi API Token (Format) ***BOOMI_TOKEN.user@company.com:bOomi-aPi-ToKen***. (To configure your Boomi API Token Log in to your Boomi account and go to ***Settings » Token Management*** & add new Token)
 
