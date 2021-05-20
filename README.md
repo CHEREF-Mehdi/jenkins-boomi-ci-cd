@@ -77,7 +77,7 @@
             -Dsonar.host.url=http://localhost:9000 \
             -Dsonar.login=82e12d4fcdfd583f963e680c63dd85d441c738e8
             ```
-        * You should have a success message at the end of the execution:
+        * You should have a success INFO log at the end of the execution:
             ```
             INFO: ------------------------------------------------------------------------
             INFO: EXECUTION SUCCESS
