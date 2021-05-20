@@ -26,7 +26,7 @@
 
 4. Go to http://localhost:${JENKINS_PORT}/ & Log in with **${JENKINS_USER}** and **${JENKINS_PASS}** values you have configured in the .env file
 
-5. Install Plugins & Configure Jenkins settings 
+5. Install Plugins & Configure basic Jenkins settings 
     1. In ***Dashboard*** select ***Manage Jenkins***, scroll down to ***System Configuration***, click on ***Manage Plugins*** & select ***Available*** Tab.
         * search for *SonarQube Scanner* and install it.
         * search for *Sonar Quality Gates* and install it.
@@ -69,7 +69,7 @@
 
 9. Sonar Advance Settings
     1. Test your sonar container Boomi code quality checks:
-        * Open sonar container CLI and Test the instalation by running this command :
+        * Open sonar container CLI and test the installation by running this command :
             ```
             sonar-scanner \
             -Dsonar.projectKey=BoomiSonar \
